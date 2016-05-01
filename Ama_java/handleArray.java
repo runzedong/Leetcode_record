@@ -20,10 +20,28 @@ public class handleArray {
 		}
 		return res;
 	}
+	public static int[] rearrangeArray2 (int[] nums) {
+		if (nums==null || nums.length==0) 
+			return new int[0];
+		int minusIndex=0;
+
+		for (int i=0; i<nums.length; i++) {
+			if (nums[i]<0) {
+				if (i!=minusIndex) {
+					int temp=nums[i];
+					for (int j=i; j>minusIndex; j--)
+						nums[j]=nums[j-1];
+					nums[minusIndex++]=temp;
+				}
+			}
+		}
+
+		return nums;
+	}
 	public static void main(String[] args) {
 		int[] test = {9,2,-3,1,0,0,-7,-6,4,3,-2,-5};
-		int[] result = rearrangeArray(test);
-		for (Integer n : result) 
+		rearrangeArray2(test);
+		for (Integer n : test) 
 			System.out.println(n);
 	}
 }
