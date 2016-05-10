@@ -21,6 +21,30 @@ public class StringListCombination {
 		for (String str : res) {
 			System.out.println(str);
 		}
+	}
+
+	public static void combinationStringRev (ArrayList<ArrayList<String>> listStrs) {
+		ArrayList<String> res = new ArrayList<String>();
+		if (listStrs==null || listStrs.size()==0) {
+			return;
+		}
+		helper(listStrs, 0, "", res);
+
+		for (String str : res) {
+			System.out.println(str);
+		}
+	}
+
+	private static void helper(ArrayList<ArrayList<String>> list, int idx, String temp, ArrayList<String> res) {
+		if (list.size() == idx){
+			res.add(temp);
+			return;
+		}
+
+		for (String sub : list.get(idx)) {			
+			helper(list, idx+1, temp+sub, res);			
+		}
+
 	} 
 
 	public static void main(String[] args) {
@@ -43,6 +67,6 @@ public class StringListCombination {
 				System.out.println(e);
 			}
 		}
-		combinationString(listStrs);
+		combinationStringRev(listStrs);
 	}
 }
