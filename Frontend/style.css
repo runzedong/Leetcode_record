@@ -1,0 +1,32 @@
+fieldset{
+	background: lightyellow;
+	border: 10px solid yellow;
+	margin-bottom: 10px;
+	width: 720px;
+}
+
+label{
+ 	text-align: right;
+ 	text-align: top;
+	width: 180px;
+	display: inline-block;
+}
+
+label:hover {font-size: 20px}
+
+textarea{
+	width: 360px;
+	height: 50px;
+}
+
+#gender{
+	width: auto;
+}
+
+#contact{
+	width: auto;
+}
+
+#range{
+	 text-align:center;
+}
