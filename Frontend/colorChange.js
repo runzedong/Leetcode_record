@@ -12,7 +12,8 @@ function show_pattern () {
 	var page_body = document.getElementById("theBody");
 
 	while(page_body.getfirstChild) {
-		
+		var thisnode = page_body.getfirstChild;
+		page_body.removeChild(thisnode);
 	}
 
 	while (width > 20) {
