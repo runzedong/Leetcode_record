@@ -4,35 +4,29 @@ public class MinHeightTree {
 
     public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
         List<Integer> result = new LinkedList<>();
-        int[] heightList = new int[n];
+        int minDeepth = n;
+        int currDeepth;
         for (int i = 0; i < n; i++) {
-            heightList[i] = getDepth(i, edges, n);
-        }
-        // test the heightList
-        for (int each_height : heightList) {
-        	System.out.println("the deep is "+each_height);
-        }
-        int minHeight = heightList[0];
-        result.add(0);
-        for (int k = 1; k < n; k++) {
-            if (heightList[k] < minHeight) {
-                minHeight = heightList[k];
-                while (!result.isEmpty()) {
-                    result.remove(result.size()-1);
-                }
-                result.add(k);
+            currDeepth = getDepth(i, edges, n, minDeepth);
+            if (currDeepth < minDeepth) {
+            	while (!result.isEmpty()) {
+            		result.remove(result.size()-1);
+            	}
+            	result.add(i);
+            	minDeepth = currDeepth;
             }
-            else if (heightList[k] == minHeight) {
-                result.add(k);
+            else if (currDeepth == minDeepth) {
+            	result.add(i);
             }
             else {
-                continue;
+            	continue;
             }
         }
+
         return result;
     }
     
-    public static int getDepth(int node, int[][] edges, int n) {
+    public static int getDepth(int node, int[][] edges, int n, int minDeepth) {
         int deepth = 0;
         boolean[] Visited = new boolean[n];
         LinkedList<Integer> Queue = new LinkedList<>();
@@ -55,11 +49,17 @@ public class MinHeightTree {
                     nextLevelNum += 1;
                 }
             }
+
             if (currLevelNum == 0) {
                 deepth++;
                 currLevelNum = nextLevelNum;
                 nextLevelNum = 0;
             }
+
+            if (deepth > minDeepth) {
+            	break;
+            }
+
         }
        return deepth;
     }
