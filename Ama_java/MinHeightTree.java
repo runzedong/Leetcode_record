@@ -1,5 +1,8 @@
 import java.util.*;
-
+// brute force approach to use BFS get each node longest path. and find min.
+// LTE on OJ
+// the key point is to delete leaf, and then recursively do that
+// the last one or two should be the optimal node which has minHeight.
 public class MinHeightTree {
 
     public static List<Integer> findMinHeightTrees(int n, int[][] edges) {

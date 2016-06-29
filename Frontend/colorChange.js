@@ -1,4 +1,4 @@
-function set_up (argument) {
+function set_up () {
 	var frequency = 1000*prompt("How long will you want the pattern appear in second ?");
 	var the_timer = setInterval(show_pattern, frequency);
 }
