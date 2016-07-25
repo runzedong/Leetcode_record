@@ -1,66 +1,55 @@
 import java.util.*;
-// in this problem even though there are two duplicate numbers
-// they still count different kth largest numbers
+
 public class KthLargestNum {
-	public static void main(String[] args) {
-		int k=4;
-		int[] nums={3,2,3,1,2,4,5,5,6};
-		System.out.println("method 1.")
-		int result=findKthLargest(nums,k);
-		System.out.println(k+" largest num is "+result);
+    public static int findKthLargest(int[] nums, int k) {
+        int start = 0;
+        int end = nums.length - 1;
+        int pivot = partition(nums, start, end);
+        System.out.println("Initial pivot is "+ pivot);
+        displayNums(nums);
+        while (pivot != nums.length-k) {
+            if (pivot > nums.length-k) {
+                start = 0;
+                end = pivot-1;
+                pivot = partition(nums, start, end);   
+            }
+            
+            else {
+                start = pivot+1;
+                end = nums.length-1;
+                pivot = partition(nums, start, end);
+            }
+        }
+        
+        return nums[pivot];
+    }
+    
+    public static int partition(int[] nums, int start, int end) {
+        int pivotValue = nums[start];
+        int pivotPoint = start;
+        for (int i = start+1; i <= end; i++) {
+            if (nums[i] <= pivotValue) {
+                start ++;
+                int temp = nums[start];
+                nums[start] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        nums[pivotPoint] = nums[start];
+        nums[start] = pivotValue;
+        return start;
+    }
 
-		System.out.println("method 2.");
-		int result2=findKthLargestWithPQ(nums,k);
-		System.out.println(k+" largest num is "+result2);
-		
-		System.out.println("method 3.")
-		int result3=findKthLargestQuickSelect(nums,k);
-		System.out.println(k+" largest num is "+result2);
-	}
-// method 1.
-// built-in sort function. 
-// sort function time complexity (NlogN)
-	public static int findKthLargest(int[] nums, int k) {
-		Arrays.sort(nums);
-		return nums[nums.length-k];
-	}
-// method 2.
-// use priority queue to build max-heap. 
-// time complexity of maintain max-heap is (logN)<worst case>
-	static class PqComparator implements Comparator<Integer> {
-		public int compare(Integer a, Integer b) {
-			return b-a;
-		}
-	}
-	public static int findKthLargestWithPQ(int[] nums, int k) {
-		PriorityQueue<Integer> queue=new PriorityQueue<>(nums.length, new PqComparator());
-		for (Integer n: nums){
-			queue.add(n);
-		}
-		for (int i=0; i<k-1; i++){
-			queue.poll();
-		}
-		return queue.peek();
-	}
-// method 3.
-// use quicksort idea. but not need to sort, just find the pivot we need
-// 
-	public static int findKthLargestQuickSelect(int nums, int k) {
-
-	}
-	public static int FreakfindKthLargest(int[] nums, int k) {
-		Arrays.sort(nums);
-		int count=1;
-		int i;
-		for (i=nums.length-1; i>0; i--){
-			if (count==k)
-				break;
-			else
-			{
-				if (nums[i]!=nums[i-1])
-					count++;
-			}
-		}
-		return nums[i];
-	}
+    public static void displayNums (int[] nums) {
+        for (Integer i : nums) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        System.out.println(" ");
+    }
+    public static void main(String[] args) {
+        int[] nums = {3,2,3,1,2,4,5,5,6,7,7,8,2,3,1,1,1,10,11,5,6,2,4,7,8,5,6};
+        int k = 1;
+        findKthLargest(nums, k);
+    }
 }
